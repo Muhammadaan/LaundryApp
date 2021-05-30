@@ -46,7 +46,6 @@ class DaftarTransaksiView extends DaftarTransaksiViewModel {
                         }).toList(),
                       );
                     }
-                  
 
                     return Text("loading");
                   })

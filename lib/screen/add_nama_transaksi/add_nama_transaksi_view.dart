@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:laundry/widgets/text_button_custom.dart';
 import './add_nama_transaksi_view_model.dart';
 
 class AddNamaTransaksiView extends AddNamaTransaksiViewModel {
@@ -19,10 +20,18 @@ class AddNamaTransaksiView extends AddNamaTransaksiViewModel {
                   floatingLabelBehavior: FloatingLabelBehavior.always),
               controller: namaCtrl,
             ),
-            TextButton(onPressed: () {
-              addData();
+            SizedBox(height: 20,),
+            // TextButton(onPressed: () {
+            //   addData();
 
-            }, child: Text("Simpan"))
+            // }, child: Text("Simpan"))
+
+            ButtonTextCustom(
+              label: "Pilih Layanan",
+              press: (){
+                tapLayanan();
+              },
+            )
           ],
         ),
       ),
