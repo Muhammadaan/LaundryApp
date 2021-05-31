@@ -59,9 +59,11 @@ class DaftarLayananView extends DaftarLayananViewModel {
                     return GestureDetector(
                       onTap: () {
                         showModalInput(
-                            name: e['nama_layanan'],
-                            satuan: e['nama_satuan'],
-                            harga: e['harga']);
+                          name: e['nama_layanan'],
+                          satuan: e['nama_satuan'],
+                          harga: e['harga'],
+                          durasi: e['durasi_penyelesaian'],
+                        );
                       },
                       child: Container(
                         margin: EdgeInsets.all(10),
@@ -99,7 +101,10 @@ class DaftarLayananView extends DaftarLayananViewModel {
                                 Text(
                                   "Harga ${AppHelper().numberToRupiah(e['harga'])}",
                                 ),
-                                Text("Pengerjaan")
+                                Text(
+                                  "Pengerjaan ${AppHelper().millisecondToDay(e['durasi_penyelesaian'])} Hari / ${e['nama_satuan']} ",
+                                  style: TextStyle(fontSize: 12),
+                                )
                               ],
                             )
                           ],
@@ -113,7 +118,7 @@ class DaftarLayananView extends DaftarLayananViewModel {
     );
   }
 
-  void showModalInput({String name, String satuan, int harga}) {
+  void showModalInput({String name, String satuan, int harga, int durasi}) {
     showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
@@ -153,7 +158,9 @@ class DaftarLayananView extends DaftarLayananViewModel {
                                   harga: harga,
                                   jumlah: jumlahCtrl.text,
                                   nama: name,
-                                  satuan: satuan);
+                                  satuan: satuan,
+                                  durasi: AppHelper().millisecondToDay(durasi)
+                                  );
                               jumlahCtrl.text = "";
                               Navigator.pop(context);
                               setState(() {});

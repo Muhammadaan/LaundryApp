@@ -27,6 +27,10 @@ class ListCartView extends ListCartViewModel {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Nama", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(nama),
+                    SizedBox(
+                      width: 4,
+                    ),
                     Text(
                       "Layanan :",
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -99,41 +103,45 @@ class ListCartView extends ListCartViewModel {
                     SizedBox(
                       height: 20,
                     ),
-                      DatePickerCustom(
-                        title: "Tanggal Transaksi",
-                        hint: "Tanggal",
-                        initialValue: tanggaTransaksi,
-                        onResult: (value) {
-                          setState(() {
-                            tanggaTransaksi = value;
-                            print(value);
-                          });
-                        }),
-                        SizedBox(
-                          height: 10,
-                        ),
-                    DatePickerCustom(
-                        title: "Tanggal Selesai",
-                        hint: "Tanggal",
-                        initialValue: tanggalSelesai,
-                        onResult: (value) {
-                          setState(() {
-                            tanggalSelesai = value;
-                            print(value);
-                          });
-                        }),
+                    Text(
+                      "Durasi Pengerjaan",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text("${durasiPengerjaan.toString()} hari"),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      "Tanggal Transaksi",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(tanggaTransaksi),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      "Tanggal Selesai",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(tanggalSelesai),
                     TextField(
                       controller: keteranganCtrl,
                       decoration: InputDecoration(
-                        labelStyle: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color: Colors.black),
-                        labelText: "Keterangan",floatingLabelBehavior: FloatingLabelBehavior.always),
+                          labelStyle: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                          labelText: "Keterangan",
+                          floatingLabelBehavior: FloatingLabelBehavior.always),
                     ),
                     SizedBox(
                       height: 30,
                     ),
                     ButtonTextCustom(
                       label: "Lanjutkan",
-                      press: () {},
+                      press: () {
+                        tapLanjutkan();
+                      },
                     )
                   ],
                 ),

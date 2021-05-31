@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:laundry/utils/app_contant.dart';
+import 'package:laundry/utils/app_helper.dart';
 import './daftar_transaksi_view_model.dart';
 
 class DaftarTransaksiView extends DaftarTransaksiViewModel {
@@ -12,28 +15,13 @@ class DaftarTransaksiView extends DaftarTransaksiViewModel {
       ),
       body: SingleChildScrollView(
         child: Container(
+          padding: EdgeInsets.all(20),
           child: Column(
             children: [
-              // FutureBuilder<QuerySnapshot>(
-              //     future: users.get(),
-              //     builder: (_, snapshot) {
-              //       if (snapshot.hasError) {
-              //         return Text("Something went wrong");
-              //       }
-
-              //       if (snapshot.hasData) {
-              //         return Column(
-              //           children: snapshot.data.docs.map((e) {
-              //             return Text(e['name']);
-              //           }).toList(),
-              //         );
-              //       }
-
-              //       return Text("loading");
-              //     })
-
               StreamBuilder<QuerySnapshot>(
-                  stream: users.snapshots(),
+                  stream: transaksi
+                      .orderBy('createdAt', descending: true)
+                      .snapshots(),
                   builder: (_, snapshot) {
                     if (snapshot.hasError) {
                       return Text("Something went wrong");
@@ -42,12 +30,64 @@ class DaftarTransaksiView extends DaftarTransaksiViewModel {
                     if (snapshot.hasData) {
                       return Column(
                         children: snapshot.data.docs.map((e) {
-                          return Text(e['name']);
+                          return Container(
+                              margin: EdgeInsets.only(top: 15),
+                              padding: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 3,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                                color: Colors.white,
+                              ),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    icWasher,
+                                    width: 30,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        e['nama'],
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Dibuat :" +
+                                            AppHelper.formatDateString(
+                                                e['createdAt']),
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                      Text(
+                                        "Selesai :" + e['tanggalSelesai'],
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                      Text(
+                                        "Harga " +
+                                            AppHelper().numberToRupiah(
+                                                e['totalHarga']),
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ));
                         }).toList(),
                       );
                     }
 
-                    return Text("loading");
+                    return Center(child: Text("Loading"));
                   })
             ],
           ),

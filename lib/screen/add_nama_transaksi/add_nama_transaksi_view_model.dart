@@ -20,7 +20,7 @@ abstract class AddNamaTransaksiViewModel extends State<AddNamaTransaksi> {
   tapLayanan(){
      Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => DaftarLayanan()),
+      MaterialPageRoute(builder: (context) => DaftarLayanan(nama:  namaCtrl.text ,)),
     );
   }
 }

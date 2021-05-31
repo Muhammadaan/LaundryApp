@@ -13,9 +13,12 @@ abstract class DaftarLayananViewModel extends State<DaftarLayanan> {
   bool isLoad = true;
   List listLayanan = [];
   List listCart = [];
-  Map dataList;
-  List listLayanan1;
+  List listDurasi = [];
+  List listHarga = [];
   int jumlahLayanan = 0;
+  int durasi = 0;
+  int totalHarga = 0;
+
   TextEditingController jumlahCtrl = TextEditingController();
 
   @override
@@ -36,7 +39,7 @@ abstract class DaftarLayananViewModel extends State<DaftarLayanan> {
         url,
         data: {
           'jwt':
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJxIjoiIiwibGltaXQiOjEwLCJvZmZzZXQiOjB9.__xPZELiWcXD9Ow3xDspjx08BQr8hACnBEjvIWV4sFo"
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJxIjoiIiwibGltaXQiOjUwLCJvZmZzZXQiOjB9.UcX7mCCUB6f33MQKtQsruUpHev_XJABY7U8JbqftR9A"
         },
         options: Options(contentType: Headers.formUrlEncodedContentType),
       )
@@ -51,20 +54,25 @@ abstract class DaftarLayananViewModel extends State<DaftarLayanan> {
     }
   }
 
-  tapTambah({String nama, String satuan, int harga, String jumlah}) {
+  tapTambah(
+      {String nama, String satuan, int harga, String jumlah, int durasi}) {
     listCart.add({
       'nama': nama,
       'satuan': satuan,
       'harga': harga,
       'jumlah': int.parse(jumlah),
-      'jumlahtotal' : harga * int.parse(jumlah)
+      'jumlahtotal': harga * int.parse(jumlah),
+      'durasitotal': durasi * int.parse(jumlah),
     });
+
+    listHarga.add(harga * int.parse(jumlah));
+    listDurasi.add(durasi * int.parse(jumlah));
+    listDurasi.sort();
+    totalHarga = listHarga.fold(0, (t, e) => t + e);
 
     setState(() {
       jumlahLayanan = listCart.length;
     });
-
-   
   }
 
   nextTransaksi() {
@@ -73,6 +81,9 @@ abstract class DaftarLayananViewModel extends State<DaftarLayanan> {
       MaterialPageRoute(
           builder: (context) => ListCart(
                 listlayanan: listCart,
+                durasi: listDurasi.last,
+                nama: this.widget.nama,
+                totalHarga: totalHarga,
               )),
     );
   }

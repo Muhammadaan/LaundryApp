@@ -5,5 +5,12 @@ import './daftar_transaksi.dart';
 abstract class DaftarTransaksiViewModel extends State<DaftarTransaksi> {
   // Add your state and logic here
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference transaksi = FirebaseFirestore.instance.collection('transaksi');
+  
+  
+
+  // Firestore.instance
+  //    .collection("users")
+  //    .orderBy('createdAt', descending: true or false).getDocuments()
+ 
 }
