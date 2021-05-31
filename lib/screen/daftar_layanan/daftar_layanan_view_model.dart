@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:laundry/screen/list_cart/list_cart.dart';
+
 import 'package:laundry/utils/app_contant.dart';
 import './daftar_layanan.dart';
 
@@ -10,8 +12,12 @@ abstract class DaftarLayananViewModel extends State<DaftarLayanan> {
 
   bool isLoad = true;
   List listLayanan = [];
+  List listCart = [];
   Map dataList;
-  List listLayanan1; 
+  List listLayanan1;
+  int jumlahLayanan = 0;
+  TextEditingController jumlahCtrl = TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -35,18 +41,7 @@ abstract class DaftarLayananViewModel extends State<DaftarLayanan> {
         options: Options(contentType: Headers.formUrlEncodedContentType),
       )
           .then((value) {
-            print(value);
-            print("===Value===");
-        
-        // list.
-
-          // listLayanan.add(value);
-          listLayanan.addAll(value.data);
-      
-          print("====");
-
-          print(listLayanan);
-
+        listLayanan.addAll(value.data);
         setState(() {
           isLoad = false;
         });
@@ -54,5 +49,31 @@ abstract class DaftarLayananViewModel extends State<DaftarLayanan> {
     } catch (e) {
       print(e);
     }
+  }
+
+  tapTambah({String nama, String satuan, int harga, String jumlah}) {
+    listCart.add({
+      'nama': nama,
+      'satuan': satuan,
+      'harga': harga,
+      'jumlah': int.parse(jumlah),
+      'jumlahtotal' : harga * int.parse(jumlah)
+    });
+
+    setState(() {
+      jumlahLayanan = listCart.length;
+    });
+
+   
+  }
+
+  nextTransaksi() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ListCart(
+                listlayanan: listCart,
+              )),
+    );
   }
 }
