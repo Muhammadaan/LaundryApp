@@ -67,9 +67,9 @@ abstract class ReviewTransaksiViewModel extends State<ReviewTransaksi> {
       isSave = false;
     });
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
-    );
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => HomeScreen()),
+        ModalRoute.withName('/'));
   }
 }
