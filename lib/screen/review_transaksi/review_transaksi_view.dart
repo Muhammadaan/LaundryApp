@@ -127,6 +127,14 @@ class ReviewTransaksiView extends ReviewTransaksiViewModel {
                       height: 5,
                     ),
                     Text(
+                      "Total Tagihan",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(AppHelper().numberToRupiah(totalHarga)),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
                       "Keterangan",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
@@ -134,11 +142,22 @@ class ReviewTransaksiView extends ReviewTransaksiViewModel {
                     SizedBox(
                       height: 30,
                     ),
-                    ButtonTextCustom(
-                      label: "Simpan",
-                      press: () {
-                        tapSimpan();
-                      },
+                    Container(
+                      child: isSave
+                          ? Center(
+                              child: SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 1,
+                              ),
+                            ))
+                          : ButtonTextCustom(
+                              label: "Simpan",
+                              press: () {
+                                tapSimpan();
+                              },
+                            ),
                     )
                   ],
                 ),

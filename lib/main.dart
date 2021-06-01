@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'screen/home_screen/home_screen.dart';
+
+import 'screen/splash/splash.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins-Regular',
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: Splash(),
     );
   }
 }

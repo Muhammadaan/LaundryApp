@@ -17,6 +17,7 @@ abstract class ReviewTransaksiViewModel extends State<ReviewTransaksi> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   CollectionReference transaksi =
       FirebaseFirestore.instance.collection('transaksi');
+  bool isSave = false;
 
   @override
   void initState() {
@@ -40,6 +41,9 @@ abstract class ReviewTransaksiViewModel extends State<ReviewTransaksi> {
   }
 
   tapSimpan() async {
+    setState(() {
+      isSave = true;
+    });
     await transaksi.add({
       'nama': nama,
       'keterangan': keterangan,
@@ -49,6 +53,18 @@ abstract class ReviewTransaksiViewModel extends State<ReviewTransaksi> {
       'listLayanan': listLayanan,
       'totalHarga': totalHarga,
       'createdAt': DateTime.now()
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 2),
+        content: const Text('Transaksi berhasil di simpan'),
+        backgroundColor: Colors.green,
+      ),
+    );
+
+    setState(() {
+      isSave = false;
     });
 
     Navigator.pushReplacement(

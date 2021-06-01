@@ -99,7 +99,7 @@ class DaftarLayananView extends DaftarLayananViewModel {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "Harga ${AppHelper().numberToRupiah(e['harga'])}",
+                                  "Total ${AppHelper().numberToRupiah(e['harga'])}",
                                 ),
                                 Text(
                                   "Pengerjaan ${AppHelper().millisecondToDay(e['durasi_penyelesaian'])} Hari / ${e['nama_satuan']} ",
